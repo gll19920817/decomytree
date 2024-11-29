@@ -1,0 +1,60 @@
+<view class="h-screen overflow-clip flex flex-col gap-8 justify-center w-full absolute top-0 left-0 bg-neutral-900 text-white p-4">
+    <block wx:if="{{step==1}}">
+        <view>
+            <text class="text-2xl font-semibold">选择装饰</text>
+        </view>
+        <view class="grid grid-cols-4 gap-2.5 h-[960rpx] overflow-scroll">
+            <block wx:for="{{decoArr}}" wx:key="index">
+                <view bindtap="selectDeco" data-deco-index="{{item}}" class="inline-flex items-center justify-center w-20 h-20 rounded-xl {{selectedDecoIndex === item ? 'bg-gradient-to-r from-[#B71410] to-[#EE8512]' : 'bg-neutral-600'}}">
+                    <image src="../../assets/deco/{{item}}.png" mode="aspectFit" class="w-14 h-14" />
+                </view>
+            </block>
+        </view>
+    </block>
+    <block wx:elif="{{step==2}}">
+        <view class="flex flex-col gap-2">
+            <text class="text-2xl font-extrabold text-[#34C759]">{{username}}</text>
+            <text class="text-xl font-extrabold">留言</text>
+        </view>
+        <view>
+            <view class="h-[760rpx] bg-[#efd2da] rounded-3xl p-3 relative">
+                <view class="absolute left-1/2 -translate-x-1/2 -translate-y-2/3 bg-[#efd2da] w-24 h-24 rounded-full border-[3px] flex items-center justify-center border-[#B11F47]">
+                    <image src="../../assets/deco/{{selectedDecoIndex}}.png" mode="aspectFit" class="w-12 h-12" />
+                </view>
+                <view class="flex flex-col gap-5 border-[3px] border-dashed border-[#B11F47] px-6 py-8 h-full rounded-3xl">
+                    <text class="font-bold text-[#B11F47]">来自.</text>
+                    <view>
+                        <input bindinput="canMoveForward" model:value="{{from}}" type="text" cursor-color="#B11F47" placeholder="你的昵称" placeholder-style="color:#B11F47; opacity:0.75" class="text-[#B11F47] font-bold" maxlength="15" />
+                    </view>
+                    <hr class="h-0.5 w-full bg-[#E2AFBC]" />
+                    <textarea bindinput="canMoveForward" model:value="{{message}}" class="text-[#B11F47] font-bold !m-w-fit" auto-height="{{true}}" cursor-color="#B11F47" placeholder="在这里写下你的信息" placeholder-style="color:#B11F47; opacity:0.75" maxlength="500" minlength="10"></textarea>
+                </view>
+            </view>
+        </view>
+        <view>
+            <text class="text-white font-semibold">可见性</text>
+            <view class="flex rounded overflow-hidden mt-2 h-10">
+                <view bindtap="toggleIsPublic" class="flex-1 text-sm flex justify-center items-center {{isPublic==true ? 'bg-[#FFFFFF] text-black' : 'bg-[#3E3E3E] text-white'}}">
+                    <text>任何人</text>
+                </view>
+                <view bindtap="toggleIsPublic" class="flex-1 flex justify-center items-center gap-1  {{isPublic==false ? 'bg-[#FFFFFF] text-black' : 'bg-[#3E3E3E] text-white'}}">
+                    <text class="text-sm">只有Jungcat</text>
+                    <image src="../../assets/icons/material-symbols_lock.png" mode="aspectFit" class="h-5 w-5" />
+                </view>
+            </view>
+        </view>
+    </block>
+    <block wx:if="{{step<=total}}">
+        <view class="bg-neutral-900 py-6 flex justify-between items-center gap-4 relative">
+            <view wx:if="{{step!=0}}" class="absolute h-1.5 w-full rounded-full overflow-hidden bg-gray-400 top-0 left-0">
+                <view class="absolute h-full left-0 bg-white" style="width: {{(step / total * 100) + '%'}}"></view>
+            </view>
+            <view bindtap="backward" class="bg-slate-300 rounded-full h-10 w-10 inline-flex items-center justify-center">
+                <image class="h-8 w-8" src="../../assets/icons/back.png" mode="aspectFit"></image>
+            </view>
+            <view bindtap="forward" class="flex-1 text-center  py-3 rounded-full text-white font-semibold {{forwardDisabled ? 'bg-[#afd5b8]' : 'bg-gradient-to-r from-[#B71410] to-[#EE8512]'}}">
+                {{ step != total ? '下一步' : '装饰' }}
+            </view>
+        </view>
+    </block>
+</view>

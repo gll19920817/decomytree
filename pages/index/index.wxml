@@ -1,0 +1,18 @@
+<view class="h-screen flex flex-col items-center justify-center gap-6 bg-gradient-to-b from-[#c3e8ca] to-[#D6E6D9]">
+  <view class="flex flex-col items-center gap-2 py-4 px-16 bg-gradient-to-b from-[#A2DBB2] to-[#C1D7CB] rounded-lg">
+    <image src="../../assets/icons/deco_tree_green.png" class="w-8 h-14" mode="aspectFit"></image>
+    <text class="text-[#47A660] font-semibold">欢迎来到</text>
+    <text class="text-xl font-extrabold text-[#02534C]">种一颗圣诞树</text>
+  </view>
+  <view>
+    <image src="../../assets/icons/sign_center_tree.png" class="w-60 h-80" mode="aspectFit" />
+  </view>
+  <view>
+    <navigator class="w-56 text-center bg-gradient-to-r from-[#B71410] to-[#EE8512] py-3 rounded-full text-white font-semibold" url="/pages/guide/guide" open-type="navigate">
+      制造我的圣诞树
+    </navigator>
+  </view>
+  <!-- <navigator class="text-[#47A660] font-semibold" url="/pages/home/home" open-type="navigate">
+    我已经有一颗
+  </navigator> -->
+</view>

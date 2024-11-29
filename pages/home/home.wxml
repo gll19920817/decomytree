@@ -1,0 +1,66 @@
+<view class="h-screen flex flex-col justify-center items-center gap-6 bg-gradient-to-b from-[#c3e8ca] to-[#D6E6D9]">
+    <block wx:if="{{tree}}">
+        <view>
+            <swiper class="h-96 w-72" current="{{displayTreeIndex}}" easing-function="easeOutCubic">
+                <block wx:key="index" wx:for="{{treeArr}}">
+                    <swiper-item>
+                        <view class="absolute z-10 left-1/2 -translate-x-1/2">
+                            <image src="../../assets/topper/{{tree.topper_index}}.png" class="h-12 w-12" mode="aspectFit" />
+                        </view>
+                        <image src="../../assets/tree/{{tree.tree_index}}.png" mode="aspectFit" class="w-72 h-96 scale-90" />
+                        <block wx:if="{{tree.messages.length}}">
+                            <decos class="absolute inset-0" messages="{{slicedMessagesArr[index]}}" />
+                        </block>
+                    </swiper-item>
+                </block>
+            </swiper>
+        </view>
+        <view class="flex items-center gap-6">
+            <image bindtap="displayPrevTree" src="../../assets/icons/ph_caret-circle-right-bold.png" class="w-8 h-8 -rotate-180 {{displayTreeIndex==0 ? 'opacity-50' : 'opacity-100'}}" mode="aspectFit" />
+            <text class="text-semibold text-lg">{{displayTreeIndex + 1}}/{{treeNum}}</text>
+            <image bindtap="displayNextTree" src="../../assets/icons/ph_caret-circle-right-bold.png" class="w-8 h-8  {{displayTreeIndex==(treeNum-1) ? 'opacity-50' : 'opacity-100'}}" mode="aspectFit" />
+        </view>
+        <view class="space-y-4">
+            <view class="flex items-center gap-2 text-3xl text-[#1B945A]">
+                <text class="font-extrabold">{{tree.username}}</text>
+                <text>🎄</text>
+            </view>
+            <view class="flex items-center gap-4 px-3 py-1.5 bg-[#C1D7CC] w-fit mx-auto rounded-lg">
+                <view class="flex items-center gap-1">
+                    <image src="../../assets/icons/fluent-emoji_love-letter.png" mode="aspectFit" class="h-4 w-4" />
+                    <view class="text-[#149155] font-semibold text-sm">
+                        {{tree.messages.length}}
+                    </view>
+                </view>
+                <view class="flex items-center gap-1">
+                    <image src="../../assets/icons/deco_tree_layered.png" mode="aspectFit" class="h-4 w-4" />
+                    <view class="text-[#149155] font-semibold text-sm">{{treeNum}}</view>
+                </view>
+            </view>
+        </view>
+    </block>
+    <block wx:if="{{mytree}}">
+        <button open-type="share" class="!w-72 flex items-center justify-center gap-1 bg-gradient-to-r from-[#B71410] to-[#EE8512] py-3 rounded-full text-white font-semibold">
+            <image src="../../assets/icons/share.png" mode="aspectFit" class="w-5 h-5" />
+            <text>分享给好友获得更多的装饰！</text>
+        </button>
+    </block>
+    <block wx:else>
+        <view bindtap="startDeco" class="w-72 text-center bg-gradient-to-r from-[#B71410] to-[#EE8512] py-3 rounded-full text-white font-semibold">
+            开始装饰
+        </view>
+        <block wx:if="{{hastree}}">
+            <navigator class="text-[#47A660] font-semibold opacity-75" url="/pages/home/home" open-type="navigate">
+                返回我的圣诞树
+            </navigator>
+        </block>
+        <block wx:else>
+            <navigator class="text-[#47A660] font-semibold opacity-75" url="/pages/guide/guide" open-type="navigate">
+                制造我的圣诞树
+            </navigator>
+        </block>
+        <block wx:if="{{deco}}">
+            <deco hashId="{{hashId}}" username="{{trees.username}}" />
+        </block>
+    </block>
+</view>

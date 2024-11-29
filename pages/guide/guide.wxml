@@ -1,0 +1,94 @@
+<view class="h-screen flex flex-col justify-center items-center gap-6 bg-gradient-to-b from-[#c3e8ca] to-[#D6E6D9]">
+  <block wx:if="{{step==0}}">
+    <view class="flex flex-col items-center gap-2 py-4 px-16 bg-gradient-to-b from-[#A2DBB2] to-[#C1D7CB] rounded-lg">
+      <image src="../../assets/icons/deco_tree_green.png" class="w-8 h-12" mode="aspectFit"></image>
+      <text class="text-[#47A660] font-semibold">种一颗圣诞树</text>
+      <text class="text-3xl font-extrabold text-[#02534C]">使用方法</text>
+    </view>
+    <view>
+      <text class="text-[#47A660]">在全球上，平均每人获得了14.3个装饰品</text>
+    </view>
+    <view class="w-72 flex flex-col gap-2.5">
+      <view class="bg-[#AFD5B8] text-[#02534C] px-2.5 py-3 rounded-lg text-sm flex items-center gap-2">
+        <text class="text-white font-bold bg-[#02534C] px-2.5 py-1 rounded-lg">1</text>
+        <text class="font-semibold">制造我的圣诞树</text>
+      </view>
+      <view class="bg-[#AFD5B8] text-[#02534C] px-2.5 py-3 rounded-lg text-sm flex items-center gap-2">
+        <text class="text-white font-bold bg-[#02534C] px-2.5 py-1 rounded-lg">2</text>
+        <text class="font-semibold">共享你的圣诞树并获得装饰</text>
+      </view>
+      <view class="bg-[#AFD5B8] text-[#02534C] px-2.5 py-3 rounded-lg text-sm flex items-center gap-2">
+        <text class="text-white font-bold bg-[#02534C] px-2.5 py-1 rounded-lg">3</text>
+        <text class="font-semibold min-w-48">访问朋友的圣诞树并开始装饰</text>
+      </view>
+    </view>
+  </block>
+  <block wx:elif="{{step==1}}">
+    <view class="flex flex-col items-center gap-10">
+      <text class="text-4xl text-[#02534C] font-bold">你的名字是？</text>
+      <text class="text-[#47A660] text-xs font-semibold">请慎重选择，做出决定后不可以挽回</text>
+      <input bindinput="usernameChange" maxlength="10" placeholder="您的名字" class="text-3xl text-[#02534C] h-10 font-extrabold text-center" auto-focus="{{true}}" placeholder-style="color:#96BAAE" />
+    </view>
+  </block>
+  <block wx:elif="{{step==2}}">
+    <view class="flex flex-col items-center gap-2">
+      <text class="text-4xl text-[#02534C]">选择圣诞树</text>
+      <text class="text-[#47A660] text-xs font-semibold">明智地选择，因为一旦您做出选择，就无法更改</text>
+    </view>
+    <view class="relative">
+      <swiper class="h-96 w-72" current="{{selectedTreeIndex}}" easing-function="easeOutCubic">
+        <block wx:key="index" wx:for="{{treeArr}}">
+          <swiper-item>
+            <image src="../../assets/tree/{{index}}.png" mode="aspectFit" class="w-72 h-96" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-between w-[140%]">
+        <view bindtap="selectPrevTree">
+          <block wx:if="{{selectedTreeIndex > 0}}">
+            <image src="../../assets/icons/_more-info.png" mode="aspectFit" class="h-8 w-8" />
+          </block>
+          <block wx:else>
+            <view></view>
+          </block>
+        </view>
+        <view bindtap="selectNextTree">
+          <block wx:if="{{selectedTreeIndex < treeArr.length}}">
+            <image src="../../assets/icons/_more-info.png" mode="aspectFit" class="h-8 w-8 rotate-180" />
+          </block>
+          <block wx:else>
+            <view></view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </block>
+  <block wx:elif="{{step==3}}">
+    <view>
+      <text class="text-4xl text-[#02534C]">选择树顶装饰</text>
+    </view>
+    <view class="relative">
+      <view class="absolute -top-6 left-1/2 -translate-x-1/2">
+        <image src="../../assets/topper/{{selectedTopperIndex}}.png" class="h-12 w-12" mode="aspectFit" />
+      </view>
+      <image src="../../assets/tree/{{selectedTreeIndex}}.png" mode="aspectFit" class="w-60 h-80" />
+      <swiper circular="{{true}}" current="{{selectedTopperIndex}}" class="w-72 h-20 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" next-margin="32px" easing-function="easeOutCubic" display-multiple-items="3">
+        <block wx:key="index" wx:for="{{topperArr}}">
+          <swiper-item bindtap="selectTopper" data-topper-index="{{item}}">
+            <view class="bg-white h-20 w-20 flex items-center justify-center rounded-lg {{index==selectedTopperIndex ? 'bg-opacity-100' : 'bg-opacity-50'}}">
+              <image src="../../assets/topper/{{index}}.png" mode="aspectFit" class="w-12 h-12" />
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+  </block>
+  <block wx:if="{{step <= 3}}">
+    <view bindtap="forward" class="w-64 text-center  py-3 rounded-full text-white font-semibold {{ (step != 0 && forwardDisabled) ? 'bg-[#afd5b8]' : 'bg-gradient-to-r from-[#B71410] to-[#EE8512]' }}">
+      {{ step != total ? '下一步' : '制作我的圣诞树' }}
+    </view>
+    <view wx:if="{{step!=0}}" class="absolute h-1.5 w-full bg-[#A5DCB1] top-0 left-0">
+      <view class="absolute h-full left-0 bg-[#02534C]" style="width: {{(step / total * 100) + '%'}}"></view>
+    </view>
+  </block>
+</view>

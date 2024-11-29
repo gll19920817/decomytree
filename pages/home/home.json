@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "deco": "/components/deco/deco",
+    "decos": "/components/decos/decos"
+  }
+}
