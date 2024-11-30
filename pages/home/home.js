@@ -11,6 +11,8 @@ Page({
     treeNum: 0,
     displayTreeIndex: 0,
     slicedMessagesArr: [],
+    viewMessages: true,
+    selectedViewMessageId: "",
   },
 
   startDeco() {
@@ -33,6 +35,25 @@ Page({
     }
     this.setData({
       displayTreeIndex: this.data.displayTreeIndex + 1,
+    });
+  },
+
+  onViewMessage(e) {
+    const messageId = e.detail;
+    const index = this.data.tree.messages.findIndex(
+      (message) => message._openid == e.detail
+    );
+
+    this.setData({
+      viewMessages: true,
+      selectedViewMessageId: index,
+    });
+  },
+
+  closeMessages() {
+    this.setData({
+      viewMessages: false,
+      selectedViewMessageId: "",
     });
   },
 

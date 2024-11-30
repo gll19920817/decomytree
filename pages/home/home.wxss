@@ -1,0 +1,7 @@
+swiper-item {
+  overflow: visible;
+}
+
+wx-swiper .wx-swiper-wrapper {
+  overflow: visible;
+}

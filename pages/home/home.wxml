@@ -9,7 +9,7 @@
                         </view>
                         <image src="../../assets/tree/{{tree.tree_index}}.png" mode="aspectFit" class="w-72 h-96 scale-90" />
                         <block wx:if="{{tree.messages.length}}">
-                            <decos class="absolute inset-0" messages="{{slicedMessagesArr[index]}}" />
+                            <decos bindviewMessage="onViewMessage" class="absolute inset-0" messages="{{slicedMessagesArr[index]}}" />
                         </block>
                     </swiper-item>
                 </block>
@@ -62,5 +62,34 @@
         <block wx:if="{{deco}}">
             <deco hashId="{{hashId}}" username="{{trees.username}}" />
         </block>
+    </block>
+    <block wx:if="{{viewMessages}}">
+        <view class="absolute inset-0 bg-black bg-opacity-75 flex flex-col gap-6 items-center justify-center">
+            <swiper current="{{selectedViewMessageId}}" class="h-96 w-5/6">
+                <block wx:for="{{tree.messages}}" wx:key="index">
+                    <swiper-item>
+                        <view class="h-96 bg-[#efd2da] rounded-3xl p-3 relative">
+                            <view class="absolute z-10 left-1/2 -translate-x-1/2 -translate-y-2/3 bg-[#efd2da] w-24 h-24 rounded-full border-[3px] flex items-center justify-center border-[#B11F47]">
+                                <image src="../../assets/deco/{{item.deco_index}}.png" mode="aspectFit" class="w-12 h-12" />
+                            </view>
+                            <view class="flex flex-col gap-5 border-[3px] border-dashed border-[#B11F47] px-6 py-8 h-full rounded-3xl">
+                                <text class="font-bold text-[#B11F47]">来自.</text>
+                                <view class="flex items-center gap-1">
+                                    <text class="font-bold text-[#B11F47]">{{item.username}}</text>
+                                    <view wx:if="{{!item.publish}}" class="opacity-50">
+                                        <image src="../../assets/icons/material-symbols_lock.png" mode="aspectFit" class="h-4 w-6" />
+                                    </view>
+                                </view>
+                                <hr class="h-0.5 w-full bg-[#E2AFBC]" />
+                                <text class="font-bold text-[#B11F47]">{{item.message}}</text>
+                            </view>
+                        </view>
+                    </swiper-item>
+                </block>
+            </swiper>
+            <view bindtap="closeMessages" class="opacity-75">
+                <image src="../../assets/icons/close_details.png" mode="aspectFit" class="h-12 w-12" />
+            </view>
+        </view>
     </block>
 </view>

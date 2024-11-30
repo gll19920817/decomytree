@@ -9,7 +9,11 @@ Component({
     rows: [],
     maxRowCount: 4,
   },
-  methods: {},
+  methods: {
+    viewMessage(e) {
+      this.triggerEvent("viewMessage", e.currentTarget.dataset.messageId);
+    },
+  },
   lifetimes: {
     attached: function () {
       let messagesCopy = this.data.messages;

@@ -1,33 +1,35 @@
 <view class="absolute inset-0 py-20 flex flex-col gap-2 justify-end items-start">
     <view wx:if="{{rows[3].length}}" class="w-full flex justify-center">
         <view wx:for="{{rows[3]}}" wx:key="index">
-            <view class="relative w-14 h-14 flex items-center justify-center">
-                <image src="../../assets/deco/{{item.deco_index}}.png" mode="aspectFit" class="h-12 w-12" />
+            <view bindtap="viewMessage" data-message-id="{{item._openid}}" class="relative w-14 h-14 flex items-center justify-center">
+                <image src="../../assets/deco/{{item.deco_index}}.png" mode="aspectFit" class="h-14 w-14" />
                 <text class="absolute ext-sm text-semibold text-white">{{item.username}}</text>
             </view>
         </view>
     </view>
     <view wx:if="{{rows[2].length}}" class="w-full flex max-w-[50%] mx-auto gap-4">
         <view wx:for="{{rows[2]}}" wx:key="index">
-            <view class="relative w-14 h-14 flex items-center justify-center">
-                <image src="../../assets/deco/{{item.deco_index}}.png" mode="aspectFit" class="h-12 w-12" />
+            <view bindtap="viewMessage" data-message-id="{{item._openid}}" class="relative w-14 h-14 flex items-center justify-center">
+                <image src="../../assets/deco/{{item.deco_index}}.png" mode="aspectFit" class="h-14 w-14" />
                 <text class="absolute text-sm text-semibold text-white">{{item.username}}</text>
             </view>
         </view>
     </view>
     <view wx:if="{{rows[1].length}}" class="w-full flex max-w-[75%] mx-auto gap-4">
         <view wx:for="{{rows[1]}}" wx:key="index">
-            <view class="relative w-14 h-14 flex items-center justify-center">
-                <image src="../../assets/deco/{{item.deco_index}}.png" mode="aspectFit" class="h-12 w-12" />
+            <view bindtap="viewMessage" data-message-id="{{item._openid}}" class="relative w-14 h-14 flex items-center justify-center">
+                <image src="../../assets/deco/{{item.deco_index}}.png" mode="aspectFit" class="h-14 w-14" />
                 <text class="absolute text-sm text-semibold text-white">{{item.username}}</text>
             </view>
         </view>
     </view>
     <view wx:if="{{rows[0].length}}" class="w-full flex max-w-[90%] mx-auto gap-2">
         <view wx:for="{{rows[0]}}" wx:key="index">
-            <view class="relative w-14 h-14 flex items-center justify-center">
-                <image src="../../assets/deco/{{item.deco_index}}.png" mode="aspectFit" class="h-14 w-12" />
-                <text class="absolute text-sm text-semibold text-white">{{item.username}}</text>
+            <view bindtap="viewMessage" data-message-id="{{item._openid}}" class="relative w-14 h-14 flex items-center justify-center">
+                <image src="../../assets/deco/{{item.deco_index}}.png" mode="aspectFit" class="h-14 w-14" />
+                <view class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <text class="text-sm text-semibold text-white">{{item.username}}</text>
+                </view>
             </view>
         </view>
     </view>
